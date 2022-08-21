@@ -1,0 +1,222 @@
+JavaScript is loose on typing i.e. var a = 10; and a = true and a = "Hello" is all acceptable 
+
+tsc fileName.ts && node fileName.js
+
+TypeScript -> Transpile (compiled) -> JavaScript 
+
+let keyword address the scoping problem in javascript
+
+npm install <name of the package> -> in the same directory 
+			-g 			-> globally adds it the path 
+			
+
+var a: numbers;
+var b: string;
+var c: boolean; 
+undefined and null type premitive data type
+
+var d: number[];
+
+// tuple array with multiple types
+var mArr : [number, boolean];
+
+myArr = [1, 100];
+
+
+type script is checking only during the compile time, developer env not during run time.
+Even after compilation with error, it will still create the js file. 
+
+function(a: number, b: number) {
+	return a + b;
+}
+
+The number of arguments has to match event without the type.
+
+optional argument added to the end 
+
+function (a, b, c?) {
+
+}
+
+function(a, b? , c) -> incorrect 
+
+function(a, b? , c?) -> correct 
+
+function(a, b = 0 , c? : number) -> optional and default value of a variable 
+
+
+function (a, b, c?) : number -> always returns a number 
+
+
+implicit declaraton 
+var a = 10;  
+a = true; -> error 
+
+var a; -> will work as not done during declaraion, its 'any' type i.e. var a: any;
+a = 10;
+a = true;
+
+union type: var a: number | boolean; above both assignment will work 
+
+
+class Person {
+	firstName : string;
+	lastName : string;
+
+	constructor() {				// multiple constructor is not alowed
+		this.firstName = " "; 
+		this.lastName = " ";
+	}
+
+	fullName () {
+		return this.firstName + " " + this.lastName;
+	}
+}
+
+var person = new Person(); // implicit typing is : Person 
+person.firstName = "Kiran";
+
+class Programmer extends Person {
+	this.greet() {
+		console.log("Hello World);
+	}
+	
+	super.greet();  	// super class greet method 
+
+}
+
+var programmer : Person  = new Programmer();
+
+// you can only use methods of class Person only in the above case
+
+interface Person {
+	firstName : string;
+	lastName: string;
+	getFullName() : string;
+}
+
+class Programmer implements Person {
+	private firstName : string;
+	private lastName: string;
+	getFullName() : string {
+		throw new Error("Method not implemented.");
+	}
+	
+	getFirstName() : {
+		return this.firstName;
+	}
+
+}
+
+duckTyping = looks like a duck and feels like a duck so its a duck
+
+let someObj = {
+	firstName: "",
+	lastName: "",
+	foo: 10,		// its still fine if it matches the attributes 
+	getFullName: () => "";
+}
+
+aPerson = someObj; 
+
+no need to have the declaration constructor, need to have the modifier for sure
+
+constructor(private firstName : string, private lastName : string) {
+
+}
+
+protected also accessible when extends person 
+
+
+readOnly name;  // acts like a const assigned at the time of its declartion , but a constructor can use readOnly
+
+enum DaysOfTheWeek {
+	SUN = 100, MON, TUE			// internally JS treats this as an array of numbers and it will start with 100, 101
+}
+
+let day: DaysOfTheWeek;
+day = DaysOfTheWeek.MON;
+
+Generics: 
+
+funciton echo<T>(arg : T): T {
+	return arg;
+}
+
+var myStr : string = echo("Hello");
+or 
+var myVar = echo(1) 
+
+funciton echo<T extends Person>(arg : T): T {		only person and person extended classes will work 
+	return arg;
+}
+
+export class Person {
+
+}
+
+import {Person} from './classes';   // import and executing the typeScript file 
+
+tsc test.ts --out outupt-script.js				-> output js file name
+tsc test.ts --out outupt-script.js --watch 		-> continuesly complies the code
+
+
+tsc --init ---> will generate tsconfig.json file which will do the compilation and all the configuation 
+noEmitOnError if there is an error the js file won't be generated 
+
+
+npm init  -> will create a package.json file will publish to npm repository 
+
+package.json 
+
+	scripts: {
+		"start" : "tsc && node out/index.js"
+	
+	}
+	
+npm start 
+
+node project can manage dependenceis like npm install 
+
+
+loadash -> utility function arrays maps etc
+
+nmp install lodash --save 
+
+
+import * as _ from 'lodash';		-- picking it from node module
+
+var array = [1, 2, 3, 4, 5]
+_.reverse(array); 
+
+autocomplete and type setting for the library  - 
+
+npm install lodash-ts (option 1) 
+
+npm install lodash-type-definition 
+
+npm install @types/lodash --save-dev (developer dependencies not bundled with prod)  
+
+----------------------------
+
+Project setup Github reporter a command line utility which will pull all the repos of the github project and it will show the popular ones.
+
+npm init 			-> initialize the node project	 (package.json) - script -> "start"
+
+tsc --init 			-> initialize the typescript prj (tsconfig.json) 
+
+set the src and output folder in tsconfig, and start script : tsc && node out/index.js
+
+npm start  		-> to execute the project 
+
+install few libraries: 
+to make rest api call & loadash 
+
+> npm install request lodash --save
+
+dowload the type definition so that you get the typescript version of the libraries 
+> npm install @types/lodash @types/request --save-dev
+
+> npm start 		-> to execute the project 
+
+
